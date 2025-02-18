@@ -34,6 +34,7 @@ pipeline {
                     touch ~/.ssh/id_rsa
                     echo "$SSH_KEY" > ~/.ssh/id_rsa
                     chmod 600 ~/.ssh/id_rsa
+                    cat ~/.ssh/id_rsa
                     rsync -avz -e "ssh -p $SSH_PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" . ${SSH_USER}@${SSH_HOST}:${VH_PATH}
                     
                     
