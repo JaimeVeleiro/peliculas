@@ -11,6 +11,7 @@ pipeline {
         SSH_USER = 'root'
         SSH_HOST = '51.255.168.80'
         VH_PATH = '/var/www/laravel'
+        SSH_PORT = '2121'
     }
 
     stages {
