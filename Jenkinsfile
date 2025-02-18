@@ -30,9 +30,9 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "$SSH_PRIVATE_KEY" > my_key
-                    chmod 600 my_key
-                    rsync -avz -e "ssh -p $SSH_PORT -i my_key -o StrictHostKeyChecking=no" . ${SSH_USER}@${SSH_HOST}:${VH_PATH}
+                    echo "$SSH_KEY" > ~/.ssh/id_rsa
+                    chmod 600 ~/.ssh/id_rsa
+                    rsync -avz -e "ssh -p $SSH_PORT -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" . ${SSH_USER}@${SSH_HOST}:${VH_PATH}
                     
                     
                 '''
