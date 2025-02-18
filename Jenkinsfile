@@ -17,7 +17,7 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
-                    image 'ubuntu:latest'
+                    image 'cimg/base:stable'
                     label 'master' 
                     // args '-v /var/run/docker.sock:/var/run/docker.sock'
                     // image 'cimg/base:stable'
@@ -29,8 +29,6 @@ pipeline {
             }
             steps {
                 sh '''
-                    apt update
-                    apt install -y rsync
                     echo "$SSH_PRIVATE_KEY" > my_key
                     chmod 600 my_key
                     rsync -avz -e "ssh -p $SSH_PORT -i my_key -o StrictHostKeyChecking=no" . ${SSH_USER}@${SSH_HOST}:${VH_PATH}
