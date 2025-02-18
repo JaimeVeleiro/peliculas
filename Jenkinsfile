@@ -18,7 +18,7 @@ pipeline {
             agent {
                 docker {
                     image 'ubuntu-rsync'
-                    //label 'master'
+                    //label 'master' 
                     // args '-v /var/run/docker.sock:/var/run/docker.sock'
                     // image 'cimg/base:stable'
                     // label 'master' 
