@@ -17,7 +17,7 @@ pipeline {
             agent {
                 docker {
                     image 'edbizarro/gitlab-ci-pipeline-php:latest'
-                    label 'main' // or appropriate label for your Jenkins agent with docker
+                    label 'master' // or appropriate label for your Jenkins agent with docker
                     // You might need to specify volumes for persistent storage if needed
                     // volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
                 }
