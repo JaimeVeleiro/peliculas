@@ -19,6 +19,7 @@ pipeline {
                     image 'edbizarro/gitlab-ci-pipeline-php:latest'
                     label 'master'
                     // volumes ['/var/run/docker.sock:/var/run/docker.sock']
+                    volumes(['/var/run/docker.sock:/var/run/docker.sock'])
                 }
             }
             steps {
