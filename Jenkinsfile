@@ -16,7 +16,7 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
-                    image 'edbizarro/gitlab-ci-pipeline-php:latest'
+                    image 'cimg/base:stable'
                     label 'master' 
                     // volumes ['/var/run/docker.sock:/var/run/docker.sock']
                     // volumes(['/var/run/docker.sock:/var/run/docker.sock'])
