@@ -18,7 +18,7 @@ pipeline {
                 docker {
                     image 'edbizarro/gitlab-ci-pipeline-php:latest'
                     label 'master' 
-                    // volumes ['/var/run/docker.sock:/var/run/docker.sock']
+                    // volumes ['/var/run/docker.sock:/var/run/docker.sock'] 
                     // volumes(['/var/run/docker.sock:/var/run/docker.sock'])
                     args '-v /var/run/docker.sock:/var/run/docker.sock'
                 }
