@@ -19,7 +19,7 @@ pipeline {
                     image 'cimg/base:stable'
                     label 'master' 
                     // volumes ['/var/run/docker.sock:/var/run/docker.sock']
-                    // volumes(['/var/run/docker.sock:/var/run/docker.sock'])
+                    // volumes(['/var/run/docker.sock:/var/run/docker.sock'])dsad
                     args '-v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
