@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel_subido8</title>
+        <title>Laravel_subido9</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
