@@ -36,9 +36,13 @@ pipeline {
                     chmod 600 ~/.ssh/id_rsa
                     rsync -avz -e "ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no" . ${SSH_USER}@${SSH_HOST}:${VH_PATH}
                     
-                    
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data /var/www/laravel && chmod -R 775 /var/www/laravel"
+
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && chmod +x ./veleiroruiz-arranque.sh && chmod +x ./veleiroruiz-parada.sh"
+
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && docker image rm veleiroruiz && docker build -t veleiroruiz .  && ./veleiroruiz-arranque.sh 5"
                 '''
-            }
+            } //  && ./veleiroruiz-parada.sh 5
         }
 
         stage('Deploy') {
