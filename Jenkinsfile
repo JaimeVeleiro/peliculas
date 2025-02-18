@@ -1,10 +1,10 @@
 pipeline {
-    agent any
+    agent { label 'master' } // Usar label master para el agente Jenkins
 
     environment {
-        MYSQL_ROOT_PASSWORD = '2121'
-        MYSQL_USER = 'ubuntu'
-        MYSQL_PASSWORD = '2121'
+        MYSQL_ROOT_PASSWORD = credentials('mysql-root-password') // Credencial de Jenkins
+        MYSQL_USER = credentials('mysql-user') // Credencial de Jenkins
+        MYSQL_PASSWORD = credentials('mysql-password') // Credencial de Jenkins
         MYSQL_DATABASE = 'films_jenkins'
         DB_HOST = 'mysql'
         SSH_PRIVATE_KEY = credentials('ssh-private-key')
@@ -17,7 +17,7 @@ pipeline {
             agent {
                 docker {
                     image 'edbizarro/gitlab-ci-pipeline-php:latest'
-                    label 'master'
+                    // No necesitas especificar el label aquí, ya se definió arriba
                     volumes ['/var/run/docker.sock:/var/run/docker.sock']
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
                 sh '''
                     # Install Node dependencies.
                     npm install
-                    # install composer dependencies
+                    # Install composer dependencies
                     composer install --prefer-dist --no-ansi --no-interaction --no-progress
                     # Copy over example configuration.
                     cp .env.example .env
@@ -36,19 +36,15 @@ pipeline {
                     php artisan migrate:refresh --seed
                     # Run database seed
                     php artisan db:seed
-                    # run laravel tests
+                    # Run laravel tests
                     php vendor/bin/phpunit --coverage-text --colors=never
-                    # run frontend tests
-                    # if you have any task for testing frontend
-                    # set it in your package.json script
-                    # comment this out if you don't have a frontend test
+                    # Run frontend tests
                     # npm test
                 '''
             }
         }
 
         stage('Deploy') {
-            agent any
             steps {
                 sh '''
                     # Add SSH key
@@ -63,21 +59,8 @@ pipeline {
                     ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel-app && docker compose down && docker compose up -d --build"
                     ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel-app && cp .env.example .env"
                     ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel-app && php artisan key:generate"
-
                 '''
             }
         }
     }
 }
-// pipeline {
-//     agent any
-
-//     stages {
-//         stage('Hello') {
-//             steps {
-//                 echo 'Hello World'
-//             }
-//         }
-//     }
-// }
-//
