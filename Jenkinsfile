@@ -29,6 +29,8 @@ pipeline {
             }
             steps {
                 sh '''
+                    apt update
+                    apt install -y rsync
                     echo "$SSH_PRIVATE_KEY" > my_key
                     chmod 600 my_key
                     rsync -avz -e "ssh -p $SSH_PORT -i my_key -o StrictHostKeyChecking=no" . ${SSH_USER}@${SSH_HOST}:${VH_PATH}
