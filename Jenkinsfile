@@ -25,7 +25,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    apt install nodejs
+                    sudo apt install nodejs
                     # Install Node dependencies.
                     npm install
                     # install composer dependencies
