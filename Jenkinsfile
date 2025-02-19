@@ -16,7 +16,11 @@ pipeline {
 
     stages {
         stage('Test') {
-            agent any
+            agent {
+                docker {
+                    image 'ubuntu-rsync'
+                }
+            }
             steps {
                 sh '''
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd && ls"
