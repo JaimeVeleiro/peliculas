@@ -14,7 +14,7 @@ RUN apt-get clean \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Instalar las dependencias del proyecto Laravel
-RUN composer install
+# RUN composer install
 
 # Habilitar mod_rewrite de Apache para Laravel
 RUN a2enmod rewrite
@@ -27,14 +27,14 @@ RUN chmod -R 775 /var/www/html
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Pasar proyecto completo al VirtualHost de cada uno
-RUN mkdir -p /var/www/html/
-COPY . /var/www/html
+# RUN mkdir -p /var/www/html/
+# COPY . /var/www/html
 
 # Establecer el directorio de trabajo
 WORKDIR /var/www/html
 
 # Instalar las dependencias con npm
-RUN npm install && npm run build
+# RUN npm install && npm run build
 
 # Cambiar al usuario www-data
 USER www-data
