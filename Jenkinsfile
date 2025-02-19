@@ -15,17 +15,19 @@ pipeline {
     }
 
     stages {
+        stage('Test') {
+            agent any
+            steps {
+                sh '''
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd && ls"
+                '''
+            }
+        }
+
         stage('Build') {
             agent {
                 docker {
                     image 'ubuntu-rsync'
-                    //label 'master'
-                    // args '-v /var/run/docker.sock:/var/run/docker.sock'
-                    // image 'cimg/base:stable'
-                    // label 'master' 
-                    // args '-v /var/run/docker.sock:/var/run/docker.sock'
-                    // volumes ['/var/run/docker.sock:/var/run/docker.sock']
-                    // volumes(['/var/run/docker.sock:/var/run/docker.sock'])dsad
                 }
             }
             steps {
@@ -38,22 +40,24 @@ pipeline {
 
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd ${VH_PATH} && composer install && npm install && npm run build"
                     
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data /var/www/laravel && chmod -R 775 /var/www/laravel"
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data ${VH_PATH} && chmod -R 775 ${VH_PATH}"
-
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd ${VH_PATH} && chmod +x ./veleiroruiz-arranque.sh && chmod +x ./veleiroruiz-parada.sh"
-
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd ${VH_PATH} && ./veleiroruiz-parada.sh 3 && docker image rm veleiroruiz_php && docker build -t veleiroruiz_php . && ./veleiroruiz-arranque.sh 3"
+                    
                     
                 '''
             } // && docker image rm veleiroruiz_php && ./veleiroruiz-parada.sh 3
         }
 
         stage('Deploy') {
-            agent any
+            docker {
+                    image 'ubuntu-rsync'
+                }
             steps {
                 sh '''
-                    
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data /var/www/laravel && chmod -R 775 /var/www/laravel"
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data ${VH_PATH} && chmod -R 775 ${VH_PATH}"
+
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd ${VH_PATH} && chmod +x ./veleiroruiz-arranque.sh && chmod +x ./veleiroruiz-parada.sh"
+
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd ${VH_PATH} && ./veleiroruiz-parada.sh 3 && docker image rm veleiroruiz_php && docker build -t veleiroruiz_php . && ./veleiroruiz-arranque.sh 3"
                 '''
             }
         }
