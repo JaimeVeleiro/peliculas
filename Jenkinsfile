@@ -70,27 +70,24 @@ pipeline {
     }
 
     post {
-        success {
-            emailext(
-                to: "fimoci5722@noomlocs.com",
-                subject: "Job Peliculas tuvo Éxito",
-                body: """\
-                El job Peliculas ha finalizado con éxito.
+    success {
+        mail to: 'tucorreo@example.com',
+             subject: "Éxito: Job Peliculas",
+             body: """\
+             El job Peliculas ha finalizado con éxito.
 
-                Revisa más detalles en: 51.255.168.80:8080
-                """.stripIndent()
-            )
-        }
-        failure {
-            emailext(
-                to: "fimoci5722@noomlocs.com",
-                subject: "Job Peliculas Falló",
-                body: """\
-                El job Peliculas ha fallado.
-
-                Revisa más detalles en: 51.255.168.80:8080
-                """.stripIndent()
-            )
-        }
+             Revisa más detalles en: 51.255.168.80:8080
+             """
     }
+    failure {
+        mail to: 'tucorreo@example.com',
+             subject: "Fallo: Job Peliculas",
+             body: """\
+             El job Peliculas ha fallado.
+
+             Revisa más detalles en: 51.255.168.80:8080
+             """
+    }
+}
+
 }
