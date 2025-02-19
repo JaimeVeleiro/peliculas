@@ -47,7 +47,7 @@ pipeline {
                     
                     
                 '''
-            } // && docker image rm veleiroruiz_php && ./veleiroruiz-parada.sh 3
+            } // && docker image rm veleiroruiz_php && ./veleiroruiz-parada.sh 3 
         }
 
         stage('Deploy') {
