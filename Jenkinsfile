@@ -36,7 +36,7 @@ pipeline {
                     chmod 600 ~/.ssh/id_rsa
                     rsync -avz -e "ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no" . ${SSH_USER}@${SSH_HOST}:${VH_PATH}
 
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "composer install && npm install && npm run build"
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && composer install && npm install && npm run build"
                     
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data /var/www/laravel && chmod -R 775 /var/www/laravel"
 
