@@ -72,7 +72,7 @@ pipeline {
     post {
         success {
             emailext(
-                to: "tucorreo@example.com",
+                to: "jaimeveleiroruiz@gmail.com",
                 subject: "Job Peliculas tuvo Éxito",
                 body: """\
                 El job Peliculas ha finalizado con éxito.
@@ -83,7 +83,7 @@ pipeline {
         }
         failure {
             emailext(
-                to: "tucorreo@example.com",
+                to: "jaimeveleiroruiz@gmail.com",
                 subject: "Job Peliculas Falló",
                 body: """\
                 El job Peliculas ha fallado.
