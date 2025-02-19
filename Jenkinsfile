@@ -71,7 +71,7 @@ pipeline {
 
     post {
     success {
-        mail to: 'tucorreo@example.com',
+        mail to: 'fimoci5722@noomlocs.com',
              subject: "Éxito: Job Peliculas",
              body: """\
              El job Peliculas ha finalizado con éxito.
@@ -80,7 +80,7 @@ pipeline {
              """
     }
     failure {
-        mail to: 'tucorreo@example.com',
+        mail to: 'fimoci5722@noomlocs.com',
              subject: "Fallo: Job Peliculas",
              body: """\
              El job Peliculas ha fallado.
