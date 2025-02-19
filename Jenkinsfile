@@ -23,7 +23,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd && ls"
+                    ssh -p $SSH_PORT -o StrictHostKeyChecking=no -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd && ls"
                 '''
             }
         }
@@ -58,7 +58,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data /var/www/laravel && chmod -R 775 /var/www/laravel"
+                    ssh -p $SSH_PORT -o StrictHostKeyChecking=no -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data /var/www/laravel && chmod -R 775 /var/www/laravel"
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data ${VH_PATH} && chmod -R 775 ${VH_PATH}"
 
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd ${VH_PATH} && chmod +x ./veleiroruiz-arranque.sh && chmod +x ./veleiroruiz-parada.sh"
