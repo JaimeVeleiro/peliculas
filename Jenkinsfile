@@ -45,7 +45,7 @@ pipeline {
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && docker build -t veleiroruiz_php . && ./veleiroruiz-arranque.sh 3"
                     
                 '''
-            } // && docker image rm veleiroruiz_php 
+            } // && docker image rm veleiroruiz_php && ./veleiroruiz-parada.sh 3
         }
 
         stage('Deploy') {
