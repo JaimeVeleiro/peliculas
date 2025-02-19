@@ -42,7 +42,7 @@ pipeline {
 
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && chmod +x ./veleiroruiz-arranque.sh && chmod +x ./veleiroruiz-parada.sh"
 
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && ./veleiroruiz-parada.sh 5 && docker build -t veleiroruiz_php . && ./veleiroruiz-arranque.sh 5"
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && docker build -t veleiroruiz_php . && ./veleiroruiz-arranque.sh 3"
                     
                 '''
             } // && docker image rm veleiroruiz_php 
