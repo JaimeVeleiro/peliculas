@@ -55,7 +55,7 @@ echo ""
 echo "Agregamos los servidores que acabamos de crear a la configuracion de haproxy"
 for i in $(seq 1 $NUM_CONTAINERS2); do
     PORT=$((START_PHP_PORT + i - 1))
-    echo "    server ${PHP_CONTAINER_PREFIX}${i} 127.0.0.1:${PORT} check" >> "${HAPROXY_CONFIG}"
+    echo "    server ${PHP_CONTAINER_PREFIX}${i} 51.255.168.80:${PORT} check" >> "${HAPROXY_CONFIG}"
 done
 echo "Archivo de configuracion completo"
 
