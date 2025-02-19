@@ -43,7 +43,7 @@ pipeline {
 
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd ${VH_PATH} && chmod +x ./veleiroruiz-arranque.sh && chmod +x ./veleiroruiz-parada.sh"
 
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd ${VH_PATH} && docker build -t veleiroruiz_php . && ./veleiroruiz-arranque.sh 3"
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd ${VH_PATH} && ./veleiroruiz-parada.sh 3 && docker build -t veleiroruiz_php . && ./veleiroruiz-arranque.sh 3"
                     
                 '''
             } // && docker image rm veleiroruiz_php && ./veleiroruiz-parada.sh 3
