@@ -14,6 +14,8 @@ for j in $(seq 1 $NUM_CONTAINERS); do
     echo ""
 done
 
+docker stop haproxy
+
 # Liberacion de memoria eliminando los contenedores inactivos
 echo "Libreamos la memoria de contenedores inactivos"
 docker container prune -f

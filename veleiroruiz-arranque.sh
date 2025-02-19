@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-PHP_APACHE_IMAGE="php:8.3-apache"
+PHP_APACHE_IMAGE="veleiroruiz_php"
 PHP_CONTAINER_PREFIX="veleiroruiz-web"
 START_PHP_PORT=8081
 NUM_CONTAINERS=$1
