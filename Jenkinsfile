@@ -47,9 +47,11 @@ pipeline {
         }
 
         stage('Deploy') {
-            docker {
+            agent {
+                docker {
                     image 'ubuntu-rsync'
                 }
+            }
             steps {
                 sh '''
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data /var/www/laravel && chmod -R 775 /var/www/laravel"
