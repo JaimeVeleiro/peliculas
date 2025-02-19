@@ -68,16 +68,29 @@ pipeline {
             }
         }
     }
-}
-// pipeline {
-//     agent any
 
-//     stages {
-//         stage('Hello') {
-//             steps {
-//                 echo 'Hello World'
-//             }
-//         }
-//     }
-// }
-//
+    post {
+        success {
+            emailext(
+                to: "tucorreo@example.com",
+                subject: "Job Peliculas tuvo Éxito",
+                body: """\
+                El job Peliculas ha finalizado con éxito.
+
+                Revisa más detalles en: 51.255.168.80:8080
+                """.stripIndent()
+            )
+        }
+        failure {
+            emailext(
+                to: "tucorreo@example.com",
+                subject: "Job Peliculas Falló",
+                body: """\
+                El job Peliculas ha fallado.
+
+                Revisa más detalles en: 51.255.168.80:8080
+                """.stripIndent()
+            )
+        }
+    }
+}
