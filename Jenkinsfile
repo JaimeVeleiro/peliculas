@@ -15,7 +15,7 @@ pipeline {
     }
 
     stages {
-        stage('Test') {
+        stage('Build') {
             agent {
                 docker {
                     image 'ubuntu-rsync'
@@ -38,9 +38,7 @@ pipeline {
                     
                     ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "chown -R www-data:www-data /var/www/laravel && chmod -R 775 /var/www/laravel"
 
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && chmod +x ./veleiroruiz-arranque.sh && chmod +x ./veleiroruiz-parada.sh"
-
-                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && docker image rm veleiroruiz && docker build -t veleiroruiz .  && ./veleiroruiz-arranque.sh 5"
+                    
                 '''
             } //  && ./veleiroruiz-parada.sh 5
         }
@@ -49,9 +47,11 @@ pipeline {
             agent any
             steps {
                 sh '''
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel && chmod +x ./veleiroruiz-arranque.sh && chmod +x ./veleiroruiz-parada.sh"
 
+                    ssh -p $SSH_PORT -i ${SSH_PRIVATE_KEY} ${SSH_USER}@${SSH_HOST} "cd /var/www/laravel &&  ./veleiroruiz-arranque.sh 5"
                 '''
-            }
+            } // docker image rm veleiroruiz && docker build -t veleiroruiz .  && .
         }
     }
 }
