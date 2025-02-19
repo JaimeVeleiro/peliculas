@@ -21,7 +21,7 @@ for j in $(seq 1 $NUM_CONTAINERS); do
 
     echo "Starting PHP-Apache container ${PHP_CONTAINER_NAME} en el puerto ${PHP_PORT}..."
     docker run -d --name "veleiroruiz-web${j}" -e PUERTO=${PHP_PORT} -e NOMBRE_CONT=$"php-veleiro${j}" -p "${PHP_PORT}:80" \
-        -v /var/www/laravel/veleiroruiz/:/var/www/html --network $NETWORK_NAME \
+        -v .:/var/www/html --network $NETWORK_NAME \
         $PHP_APACHE_IMAGE
     echo ""
 done
