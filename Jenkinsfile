@@ -72,7 +72,7 @@ pipeline {
     post {
         success {
             emailext(
-                to: "jaimeveleiroruiz@gmail.com",
+                to: "fimoci5722@noomlocs.com",
                 subject: "Job Peliculas tuvo Éxito",
                 body: """\
                 El job Peliculas ha finalizado con éxito.
@@ -83,7 +83,7 @@ pipeline {
         }
         failure {
             emailext(
-                to: "jaimeveleiroruiz@gmail.com",
+                to: "fimoci5722@noomlocs.com",
                 subject: "Job Peliculas Falló",
                 body: """\
                 El job Peliculas ha fallado.
